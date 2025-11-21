@@ -81,25 +81,61 @@ This project follows a spec-driven development methodology:
 ## Getting Started
 
 ### Prerequisites
-- Python 3.9+ or Node.js 18+
-- API keys for chosen LLM provider (OpenAI, Anthropic, etc.)
-- Vector database (Pinecone, Weaviate, or similar)
+- Python 3.11+
+- Poetry (for dependency management)
+- Docker and Docker Compose (optional, for containerized deployment)
+- API keys for LLM providers (OpenAI, Anthropic)
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/thanhauco/full-ai-agents.git
 cd full-ai-agents
 
-# Install dependencies (to be added during implementation)
-# npm install or pip install -r requirements.txt
-```
+# Install Poetry
+curl -sSL https://install.python-poetry.org | python3 -
 
-### Configuration
-```bash
+# Install dependencies
+poetry install
+
 # Set up environment variables
 cp .env.example .env
-# Edit .env with your API keys and configuration
+# Edit .env with your API keys
+```
+
+### Running the Application
+
+**Local Development:**
+```bash
+poetry run uvicorn src.ai_agent.api.app:create_app --factory --reload
+```
+
+**With Docker:**
+```bash
+docker-compose up --build
+```
+
+**Run Tests:**
+```bash
+poetry run pytest
+```
+
+The API will be available at `http://localhost:8000`
+
+### Quick Test
+
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# Get capabilities
+curl http://localhost:8000/capabilities
+
+# Chat
+curl -X POST http://localhost:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello!", "session_id": "test", "user_id": "user1"}'
 ```
 
 ## Documentation
@@ -116,9 +152,18 @@ The implementation follows a 20-step roadmap covering:
 - Advanced features (Steps 13-17)
 - Deployment and maintenance (Steps 18-20)
 
+## Implementation Status
+
+✅ **Completed:**
+- Tasks 1-5: Core infrastructure, models, LLM integration, prompts, memory
+- Task 16: FastAPI REST API
+- Task 18: Docker deployment and CI/CD
+
+📝 **See [FINAL_IMPLEMENTATION_SUMMARY.md](FINAL_IMPLEMENTATION_SUMMARY.md) for complete details**
+
 ## Contributing
 
-This project is currently in the specification and design phase. Implementation tasks will be tracked in the tasks.md file.
+Contributions are welcome! Please see the [Developer Setup Guide](docs/SETUP.md) for details on setting up your development environment.
 
 ## License
 
