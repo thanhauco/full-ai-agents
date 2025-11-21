@@ -2,7 +2,7 @@
 name = "ai-agent-system"
 version = "0.1.0"
 description = "A comprehensive AI Agent system with multi-step reasoning, tool integration, and memory management"
-authors = ["Thanh Vu <thanhauco@gmail.com>"]
+authors = ["Thanh Vu"]
 readme = "README.md"
 packages = [{include = "ai_agent", from = "src"}]
 
